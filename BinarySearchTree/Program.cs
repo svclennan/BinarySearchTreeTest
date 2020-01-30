@@ -19,6 +19,7 @@ namespace BinarySearchTree
             binaryTree.Print(binaryTree.root);
             Console.WriteLine(binaryTree.Search(3));
             Console.WriteLine(binaryTree.Search(15));
+            Console.WriteLine(binaryTree.Search(5));
             Console.ReadLine();
         }
     }

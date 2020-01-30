@@ -9,115 +9,77 @@ namespace BinarySearchTree
     class BinaryTree
     {
         public Node root;
-        public List<int> values;
         public BinaryTree()
         {
-            values = new List<int>();
+            root = null;
         }
-        private bool AddValue(int data, Node start)
+
+        public bool AddValue(int data, Node current = null)
         {
-            if (root == null)
+            if (current == null)
             {
-                root = new Node(data);
-                values.Add(data);
-                return true;
-            }
-            else
-            {
-                if (data <= start.data)
+                if (root == null)
                 {
-                    if (!(start.leftChild == null))
-                    {
-                        return AddValue(data, start.leftChild);
-                    }
-                    else
-                    {
-                        start.leftChild = new Node(data);
-                        values.Add(data);
-                        return true;
-                    }
+                    Node node = new Node(data);
+                    root = node;
+                    return true;
                 }
-                else if (data > start.data)
+                current = root;
+            }
+            if (data <= current.data)
+            {
+                if (!(current.leftChild == null))
                 {
-                    if (!(start.rightChild == null))
-                    {
-                        return AddValue(data, start.rightChild);
-                    }
-                    else
-                    {
-                        start.rightChild = new Node(data);
-                        values.Add(data);
-                        return true;
-                    }
+                    return AddValue(data, current.leftChild);
                 }
                 else
                 {
-                    return false;
+                    current.leftChild = new Node(data);
+                    return true;
                 }
             }
-        }
-        public bool AddValue(int data)
-        {
-            if (root == null)
+            else if (data > current.data)
             {
-                Node node = new Node(data);
-                root = node;
-                values.Add(data);
-                return true;
-            }
-            else
-            {
-                return AddValue(data, root);
-            }
-        }
-        public bool Search(int data)
-        {
-            if (root.data == data)
-            {
-                return true;
-            }
-            else if (data > root.data)
-            {
-                if (root.rightChild == null)
+                if (!(current.rightChild == null))
                 {
-                    return false;
+                    return AddValue(data, current.rightChild);
                 }
-                return Search(data, root.rightChild);
-            }
-            else if (data < root.data)
-            {
-                if (root.leftChild == null)
+                else
                 {
-                    return false;
+                    current.rightChild = new Node(data);
+                    return true;
                 }
-                return Search(data, root.leftChild);
             }
             else
             {
                 return false;
             }
         }
-        private bool Search(int data, Node start)
+        public bool Search(int data, Node current = null)
         {
-            if (start.data == data)
+            if (current == null)
+            {
+                current = root;
+            }
+            if (current.data == data)
             {
                 return true;
             }
-            else if (data > start.data)
+            else if (data > current.data)
             {
-                if (start.rightChild == null)
+                if (current.rightChild == null)
                 {
                     return false;
                 }
-                return Search(data, start.rightChild);
+                return Search(data, current.rightChild);
             }
-            else if (data < start.data)
+            else if (data < current.data)
             {
-                if (start.leftChild == null)
+                if (current.leftChild == null)
                 {
                     return false;
                 }
-                return Search(data, start.leftChild);
+                return Search(data, current.leftChild);
             }
             else
             {
